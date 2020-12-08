@@ -1,12 +1,13 @@
 package com.gojek.parkinglot.command;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Command {
     private final CommandType type;
-    private final List<String> params;
+    private final LinkedList<String> params;
 
-    public Command(CommandType type, List<String> params) {
+    public Command(CommandType type, LinkedList<String> params) {
         this.type = type;
         this.params = params;
     }
@@ -15,7 +16,7 @@ public class Command {
         return type;
     }
 
-    public List<String> getParams() {
+    public LinkedList<String> getParams() {
         return params;
     }
 }

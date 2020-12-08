@@ -20,4 +20,27 @@ public abstract class Vehicle {
         return colour;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vehicle vehicle = (Vehicle) o;
+
+        return registrationNumber.equals(vehicle.registrationNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return registrationNumber.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "registrationNumber='" + registrationNumber + '\'' +
+                ", colour='" + colour + '\'' +
+                ", vehicleType=" + vehicleType +
+                '}';
+    }
 }

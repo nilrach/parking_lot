@@ -4,7 +4,7 @@ import com.gojek.parkinglot.command.Command;
 import com.gojek.parkinglot.command.CommandType;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Optional;
 
 public class CommandParser {
@@ -23,7 +23,8 @@ public class CommandParser {
         if (optionalCommandType.isPresent()) {
             CommandType commandType = optionalCommandType.get();
             validateCommandParams(commandType, commandTokens);
-            List<String> params = Arrays.asList(commandTokens).subList(1, commandTokens.length);
+            LinkedList<String> params = new LinkedList<>();
+            Arrays.stream(commandTokens).forEach(t -> params.add(t));
             return new Command(commandType, params);
         } else {
             throw new IllegalStateException("Unable to parse input " + line);

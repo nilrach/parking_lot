@@ -26,11 +26,33 @@ public class ParkingLot {
     }
 
     public Set<ParkingSlot> getAllAvailableSlots() {
+        return allSlots.stream().filter(s -> s.isEmpty()).collect(Collectors.toSet());
+    }
+
+    public Set<ParkingSlot> getAllOccupiedSlots() {
         return allSlots.stream().filter(s -> !s.isEmpty()).collect(Collectors.toSet());
     }
 
-    public ParkingSlot getNextAvailableSlots() {
-        return availableSlots.poll();
+    public ParkingSlot getNextAvailableSlot() {
+        return availableSlots.peek();
     }
 
+    public Set<Vehicle> getAllParkedVehicles() {
+        return allSlots.stream().filter(s -> !s.isEmpty()).map(s -> s.getParkedVehicle()).collect(Collectors.toSet());
+    }
+
+    public void allocate(ParkingSlot slot, Vehicle vehicle) {
+        availableSlots.remove(slot);
+        slot.setParkedVehicle(vehicle);
+    }
+
+    public Boolean deAllocate(int slotNumber) {
+        ParkingSlot parkingSlot = allSlots.stream().filter(s -> s.getNumber() == slotNumber).findFirst().get();
+        if (parkingSlot.isEmpty()) {
+            return false;
+        } else {
+            parkingSlot.setParkedVehicle(null);
+            return availableSlots.add(parkingSlot);
+        }
+    }
 }

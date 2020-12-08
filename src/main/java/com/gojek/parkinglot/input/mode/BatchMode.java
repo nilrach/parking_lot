@@ -1,6 +1,7 @@
 package com.gojek.parkinglot.input.mode;
 
 import com.gojek.parkinglot.command.Command;
+import com.gojek.parkinglot.command.CommandExecutor;
 import com.gojek.parkinglot.command.parser.CommandParser;
 
 import java.io.IOException;
@@ -11,17 +12,20 @@ import java.util.List;
 
 public class BatchMode {
     private final CommandParser commandParser;
+    private final CommandExecutor commandExecutor;
 
-    private BatchMode(CommandParser commandParser) {
+    private BatchMode(CommandParser commandParser, CommandExecutor commandExecutor) {
         this.commandParser = commandParser;
+        this.commandExecutor = commandExecutor;
     }
 
-    public static BatchMode getInstance(CommandParser commandParser) {
-        return new BatchMode(commandParser);
+    public static BatchMode getInstance(CommandParser commandParser, CommandExecutor commandExecutor) {
+        return new BatchMode(commandParser, commandExecutor);
     }
 
     public void execute(String commandsInputFile) {
-        parse(commandsInputFile);
+        List<Command> commands = parse(commandsInputFile);
+
     }
 
     private List<Command> parse(String commandsInputFile) {

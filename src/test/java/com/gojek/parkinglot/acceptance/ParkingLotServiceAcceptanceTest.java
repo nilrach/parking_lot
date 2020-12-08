@@ -40,14 +40,24 @@ public class ParkingLotServiceAcceptanceTest {
 
     @Test
     public void shouldBeAbleToLeaveParkingSlot() {
-        Boolean status = parkingLotService.leave(4);
-        assertThat("Could not get parking lot status.", status, notNullValue());
-        assertThat("Could not get parking lot status.", status, is(true));
+        Vehicle vehicle1 = new Car("KA-01-HH-1234", "White");
+        parkingLotService.park(vehicle1);
+        Vehicle vehicle2 = new Car("KA-01-HH-3141", "Red");
+        parkingLotService.park(vehicle2);
+
+        Boolean status = parkingLotService.leave(2);
+        assertThat("Could not leave.", status, notNullValue());
+        assertThat("Could not leave.", status, is(true));
     }
 
     @Test
     public void shouldBeAbleToGetVehiclesWithGivenCriteria() {
-        Predicate<Vehicle> vehiclePredicate = null;
+        Vehicle vehicle1 = new Car("KA-01-HH-1234", "White");
+        parkingLotService.park(vehicle1);
+        Vehicle vehicle2 = new Car("KA-01-HH-3141", "Red");
+        parkingLotService.park(vehicle2);
+
+        Predicate<Vehicle> vehiclePredicate = v -> "White".equalsIgnoreCase(v.getColour());
         List<Vehicle> vehicles = parkingLotService.getVehiclesMatching(vehiclePredicate);
         assertThat("Could not get vehicles matching given criteria.", vehicles, notNullValue());
         assertThat("Could not get vehicles matching given criteria.", vehicles.isEmpty(), is(false));
@@ -55,7 +65,10 @@ public class ParkingLotServiceAcceptanceTest {
 
     @Test
     public void shouldBeAbleToGetSlotWithGivenCriteria() {
-        Predicate<Vehicle> vehiclePredicate = null;
+        Vehicle vehicle = new Car("KA-01-HH-3141", "White");
+        parkingLotService.park(vehicle);
+
+        Predicate<Vehicle> vehiclePredicate = (v) -> "KA-01-HH-3141".equalsIgnoreCase(v.getRegistrationNumber());
         List<ParkingSlot> parkingSlots = parkingLotService.getSlotsMatching(vehiclePredicate);
         assertThat("Could not get parking slots matching given criteria.", parkingSlots, notNullValue());
         assertThat("Could not get parking slots matching given criteria.", parkingSlots.isEmpty(), is(false));
