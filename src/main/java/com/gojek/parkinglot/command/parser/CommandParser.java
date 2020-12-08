@@ -1,4 +1,4 @@
-package com.gojek.parkinglot.input.parser;
+package com.gojek.parkinglot.command.parser;
 
 import com.gojek.parkinglot.model.Command;
 import com.gojek.parkinglot.model.CommandType;
@@ -6,14 +6,14 @@ import com.gojek.parkinglot.model.CommandType;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class InputParser {
+public class CommandParser {
 
-    private InputParser() {
+    private CommandParser() {
 
     }
 
-    public static InputParser getInstance() {
-        return new InputParser();
+    public static CommandParser getInstance() {
+        return new CommandParser();
     }
 
     public Command parseLine(String line) {

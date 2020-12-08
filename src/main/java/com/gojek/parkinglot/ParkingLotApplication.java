@@ -1,20 +1,20 @@
 package com.gojek.parkinglot;
 
-import com.gojek.parkinglot.input.parser.InputParser;
+import com.gojek.parkinglot.command.parser.CommandParser;
 import com.gojek.parkinglot.mode.BatchMode;
 import com.gojek.parkinglot.mode.InteractiveMode;
 
 public class ParkingLotApplication {
     public static void main(String[] args) {
 
-        InputParser inputParser = InputParser.getInstance();
+        CommandParser commandParser = CommandParser.getInstance();
         switch (args.length) {
             case 0:
-                InteractiveMode interactiveMode = InteractiveMode.getInstance(inputParser);
+                InteractiveMode interactiveMode = InteractiveMode.getInstance(commandParser);
                 interactiveMode.execute();
                 break;
             case 1:
-                BatchMode batchMode = BatchMode.getInstance(inputParser);
+                BatchMode batchMode = BatchMode.getInstance(commandParser);
                 batchMode.execute(args[1]);
                 break;
             default:

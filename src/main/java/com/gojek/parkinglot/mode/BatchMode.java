@@ -1,6 +1,6 @@
 package com.gojek.parkinglot.mode;
 
-import com.gojek.parkinglot.input.parser.InputParser;
+import com.gojek.parkinglot.command.parser.CommandParser;
 import com.gojek.parkinglot.model.Command;
 
 import java.io.IOException;
@@ -10,14 +10,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BatchMode {
-    private final InputParser inputParser;
+    private final CommandParser commandParser;
 
-    private BatchMode(InputParser inputParser) {
-        this.inputParser = inputParser;
+    private BatchMode(CommandParser commandParser) {
+        this.commandParser = commandParser;
     }
 
-    public static BatchMode getInstance(InputParser inputParser) {
-        return new BatchMode(inputParser);
+    public static BatchMode getInstance(CommandParser commandParser) {
+        return new BatchMode(commandParser);
     }
 
     public void execute(String commandsInputFile) {
@@ -28,7 +28,7 @@ public class BatchMode {
         List<Command> parsedCommands = new LinkedList<>();
         try {
             List<String> allLine = Files.readAllLines(Paths.get(commandsInputFile));
-            allLine.stream().forEach(line -> parsedCommands.add(inputParser.parseLine(line)));
+            allLine.stream().forEach(line -> parsedCommands.add(commandParser.parseLine(line)));
         } catch (IOException e) {
             throw new IllegalStateException("Could not read input file.", e);
         }

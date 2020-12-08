@@ -1,17 +1,17 @@
 package com.gojek.parkinglot.mode;
 
-import com.gojek.parkinglot.input.parser.InputParser;
+import com.gojek.parkinglot.command.parser.CommandParser;
 
 public class InteractiveMode {
-    private final InputParser inputParser;
+    private final CommandParser commandParser;
 
-    private InteractiveMode(InputParser inputParser) {
-        this.inputParser = inputParser;
+    private InteractiveMode(CommandParser commandParser) {
+        this.commandParser = commandParser;
 
     }
 
-    public static InteractiveMode getInstance(InputParser inputParser) {
-        return new InteractiveMode(inputParser);
+    public static InteractiveMode getInstance(CommandParser commandParser) {
+        return new InteractiveMode(commandParser);
     }
 
     public void execute() {
