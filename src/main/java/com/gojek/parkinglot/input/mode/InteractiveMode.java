@@ -1,4 +1,4 @@
-package com.gojek.parkinglot.mode;
+package com.gojek.parkinglot.input.mode;
 
 import com.gojek.parkinglot.command.parser.CommandParser;
 

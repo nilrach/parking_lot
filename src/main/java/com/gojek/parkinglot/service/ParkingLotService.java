@@ -22,7 +22,7 @@ public class ParkingLotService {
     }
 
     public String getStatus() {
-        Set<ParkingSlot> parkingSlots = parkingArea.getSlots();
+        Set<ParkingSlot> parkingSlots = parkingArea.getAllSlots();
         String parkingSlotStatus = parkingSlots.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(","));

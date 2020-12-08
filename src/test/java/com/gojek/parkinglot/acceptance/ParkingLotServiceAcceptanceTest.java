@@ -20,7 +20,7 @@ public class ParkingLotServiceAcceptanceTest {
         int numberOfSlots = 11;
         ParkingLot parkingLot = ParkingLotFactory.create(numberOfSlots);
         assertThat("Parking lot is not created", parkingLot, notNullValue());
-        assertThat("Parking lot created but not of given size", parkingLot.getSlots().size(), is(numberOfSlots));
+        assertThat("Parking lot created but not of given size", parkingLot.getAllSlots().size(), is(numberOfSlots));
     }
 
     @Test

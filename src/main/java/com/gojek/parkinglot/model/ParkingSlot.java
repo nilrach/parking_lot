@@ -2,9 +2,26 @@ package com.gojek.parkinglot.model;
 
 public class ParkingSlot {
     private final Integer number;
+    private Vehicle parkedVehicle;
 
     public ParkingSlot(Integer number) {
         this.number = number;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public Vehicle getParkedVehicle() {
+        return parkedVehicle;
+    }
+
+    public void setParkedVehicle(Vehicle parkedVehicle) {
+        this.parkedVehicle = parkedVehicle;
+    }
+
+    public Boolean isEmpty() {
+        return parkedVehicle == null;
     }
 
     @Override

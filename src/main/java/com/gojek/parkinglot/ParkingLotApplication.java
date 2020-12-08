@@ -1,8 +1,8 @@
 package com.gojek.parkinglot;
 
 import com.gojek.parkinglot.command.parser.CommandParser;
-import com.gojek.parkinglot.mode.BatchMode;
-import com.gojek.parkinglot.mode.InteractiveMode;
+import com.gojek.parkinglot.input.mode.BatchMode;
+import com.gojek.parkinglot.input.mode.InteractiveMode;
 
 public class ParkingLotApplication {
     public static void main(String[] args) {
