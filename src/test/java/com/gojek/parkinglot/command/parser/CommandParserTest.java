@@ -1,7 +1,7 @@
 package com.gojek.parkinglot.command.parser;
 
-import com.gojek.parkinglot.model.Command;
-import com.gojek.parkinglot.model.CommandType;
+import com.gojek.parkinglot.command.Command;
+import com.gojek.parkinglot.command.CommandType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.gojek.parkinglot.model;
+package com.gojek.parkinglot.command;
 
 import java.util.List;
 

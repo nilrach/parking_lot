@@ -1,7 +1,7 @@
 package com.gojek.parkinglot.mode;
 
 import com.gojek.parkinglot.command.parser.CommandParser;
-import com.gojek.parkinglot.model.Command;
+import com.gojek.parkinglot.command.Command;
 
 import java.io.IOException;
 import java.nio.file.Files;
