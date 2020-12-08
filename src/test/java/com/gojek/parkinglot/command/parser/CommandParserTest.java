@@ -2,6 +2,7 @@ package com.gojek.parkinglot.command.parser;
 
 import com.gojek.parkinglot.command.Command;
 import com.gojek.parkinglot.command.CommandType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,14 @@ public class CommandParserTest {
         boolean foundCreateCommand = commands.stream().anyMatch(command -> CommandType.CREATE == command.getType());
         assertThat("Could not parse file to valid command.", foundCreateCommand, is(true));
 
+    }
+
+    @Test()
+    public void shouldThrowExceptionWhenIncorrectNumberOfParams() {
+        String input = "park KA-01-HH-2701";
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            commandParser.parseLine(input);
+        });
     }
 
     private List<String> getAllLinesOfInputFiles() {
