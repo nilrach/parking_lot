@@ -1,3 +1,4 @@
+
 #Parking Lot Problem
 
 I own a parking lot that can hold up to 'n' cars at any given point in time. Each slot is
@@ -24,8 +25,11 @@ ways. Just to clarify, the same codebase should support both modes of input - we
 don't want two distinct codebases.
 1) It should provide us with an interactive command prompt based shell where
 commands can be typed in
-2) [approach only if you have sufficient time] It should accept a filename as a
-parameter at the command prompt and read the commands from that file
+2) It should accept a filename as a parameter at the command prompt and read the commands from that file
+
+##Project Requirements
+
+- JDK 11
 
 Example: File
 To install all dependencies, compile and run tests:
