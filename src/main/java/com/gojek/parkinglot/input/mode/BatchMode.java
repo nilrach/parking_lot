@@ -1,7 +1,8 @@
 package com.gojek.parkinglot.input.mode;
 
 import com.gojek.parkinglot.command.Command;
-import com.gojek.parkinglot.command.CommandExecutor;
+import com.gojek.parkinglot.command.CommandExecutionService;
+import com.gojek.parkinglot.command.CommandResult;
 import com.gojek.parkinglot.command.parser.CommandParser;
 
 import java.io.IOException;
@@ -12,19 +13,23 @@ import java.util.List;
 
 public class BatchMode {
     private final CommandParser commandParser;
-    private final CommandExecutor commandExecutor;
+    private final CommandExecutionService commandExecutionService;
 
-    private BatchMode(CommandParser commandParser, CommandExecutor commandExecutor) {
+    private BatchMode(CommandParser commandParser, CommandExecutionService commandExecutionService) {
         this.commandParser = commandParser;
-        this.commandExecutor = commandExecutor;
+        this.commandExecutionService = commandExecutionService;
     }
 
-    public static BatchMode getInstance(CommandParser commandParser, CommandExecutor commandExecutor) {
-        return new BatchMode(commandParser, commandExecutor);
+    public static BatchMode getInstance(CommandParser commandParser, CommandExecutionService commandExecutionService) {
+        return new BatchMode(commandParser, commandExecutionService);
     }
 
     public void execute(String commandsInputFile) {
         List<Command> commands = parse(commandsInputFile);
+        commands.forEach(command -> {
+            CommandResult commandResult = commandExecutionService.execute(command);
+            System.out.println(commandResult.getMessage());
+        });
 
     }
 

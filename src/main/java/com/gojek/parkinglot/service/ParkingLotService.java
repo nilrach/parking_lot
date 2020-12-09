@@ -21,13 +21,13 @@ public class ParkingLotService {
         return new ParkingLotService(parkingArea);
     }
 
-    public Boolean park(Vehicle vehicle) {
+    public Integer park(Vehicle vehicle) {
         ParkingSlot nextAvailableSlot = parkingLot.getNextAvailableSlot();
         if (nextAvailableSlot != null) {
             parkingLot.allocate(nextAvailableSlot, vehicle);
-            return true;
+            return nextAvailableSlot.getNumber();
         }
-        return false;
+        return -1;
     }
 
     public Boolean leave(int slotNumber) {
@@ -51,11 +51,8 @@ public class ParkingLotService {
         return slotsMatchingCriteria;
     }
 
-    public String getStatus() {
-        Set<ParkingSlot> parkingSlots = parkingLot.getAllSlots();
-        String parkingSlotStatus = parkingSlots.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(","));
-        return parkingSlotStatus;
+    public List<ParkingSlot> getStatus() {
+        return List.copyOf(parkingLot.getAllOccupiedSlots());
+
     }
 }
