@@ -55,4 +55,9 @@ public class ParkingLot {
             return availableSlots.add(parkingSlot);
         }
     }
+
+    public boolean isVehicleParked(Vehicle vehicle) {
+        return getAllParkedVehicles().stream()
+                .anyMatch(v -> v.getRegistrationNumber().equalsIgnoreCase(vehicle.getRegistrationNumber()));
+    }
 }

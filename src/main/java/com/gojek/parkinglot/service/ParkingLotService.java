@@ -22,6 +22,11 @@ public class ParkingLotService {
     }
 
     public Integer park(Vehicle vehicle) {
+        boolean isAlreadyParked = parkingLot.isVehicleParked(vehicle);
+        if(isAlreadyParked) {
+            throw new IllegalStateException(String.format(
+                    "Vehicle with registration number %s already parked.", vehicle.getRegistrationNumber()));
+        }
         ParkingSlot nextAvailableSlot = parkingLot.getNextAvailableSlot();
         if (nextAvailableSlot != null) {
             parkingLot.allocate(nextAvailableSlot, vehicle);

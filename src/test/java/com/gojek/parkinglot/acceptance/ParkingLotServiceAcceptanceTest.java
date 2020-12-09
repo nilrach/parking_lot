@@ -2,6 +2,7 @@ package com.gojek.parkinglot.acceptance;
 
 import com.gojek.parkinglot.model.*;
 import com.gojek.parkinglot.service.ParkingLotService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,17 @@ public class ParkingLotServiceAcceptanceTest {
         Integer parkedSlot = parkingLotService.park(vehicle);
         assertThat("Could not get parking lot status.", parkedSlot, notNullValue());
         assertThat("Could not get parking lot status.", parkedSlot, not(-1));
+    }
+
+    @Test
+    public void shouldNotBeAbleToParkSameCarMoreThanOnce() {
+        Vehicle vehicle = new Car("KA-01-HH-1234", "White");
+        parkingLotService.park(vehicle);
+
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            parkingLotService.park(vehicle);
+            ;
+        });
     }
 
     @Test
