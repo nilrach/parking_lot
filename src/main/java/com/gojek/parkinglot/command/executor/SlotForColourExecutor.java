@@ -2,6 +2,7 @@ package com.gojek.parkinglot.command.executor;
 
 import com.gojek.parkinglot.command.Command;
 import com.gojek.parkinglot.command.CommandResult;
+import com.gojek.parkinglot.config.Constants;
 import com.gojek.parkinglot.model.ParkingSlot;
 import com.gojek.parkinglot.model.Vehicle;
 import com.gojek.parkinglot.service.ParkingLotService;
@@ -9,6 +10,8 @@ import com.gojek.parkinglot.service.ParkingLotService;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static com.gojek.parkinglot.config.Constants.NOT_FOUND_MSG;
 
 public class SlotForColourExecutor implements CommandExecutor {
 
@@ -23,6 +26,6 @@ public class SlotForColourExecutor implements CommandExecutor {
                     .collect(Collectors.joining(", "));
             return new CommandResult(true, desiredSlotNumbers);
         }
-        return new CommandResult(false, "Not found");
+        return new CommandResult(false, NOT_FOUND_MSG);
     }
 }

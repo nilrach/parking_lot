@@ -8,6 +8,9 @@ import com.gojek.parkinglot.service.ParkingLotService;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.gojek.parkinglot.config.Constants.GET_STATUS_HEADER_MSG;
+import static com.gojek.parkinglot.config.Constants.PARKING_LOT_EMPTY_MSG;
+
 public class StatusExecutor implements CommandExecutor {
 
     @Override
@@ -15,7 +18,7 @@ public class StatusExecutor implements CommandExecutor {
         List<ParkingSlot> occupiedSlots = parkingLotService.
                 getStatus();
         if (occupiedSlots != null) {
-            StringBuffer stringBuffer = new StringBuffer("Slot No.\tRegistration No\tColour");
+            StringBuffer stringBuffer = new StringBuffer(GET_STATUS_HEADER_MSG);
 
             occupiedSlots.stream().
                     sorted(Comparator.comparingInt((ParkingSlot::getNumber)))
@@ -24,6 +27,6 @@ public class StatusExecutor implements CommandExecutor {
             return new CommandResult(true, stringBuffer.toString());
 
         }
-        return new CommandResult(false, "Parking lot is empty. No vehicle parked currently.");
+        return new CommandResult(false, PARKING_LOT_EMPTY_MSG);
     }
 }
