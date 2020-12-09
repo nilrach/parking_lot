@@ -20,7 +20,6 @@ public class CommandExecutionService {
         executorMapping.put(GET_SLOT_NUM_FOR_COLOUR, new SlotForColourExecutor());
         executorMapping.put(GET_SLOT_NUM_FOR_REGISTRATION_NUM, new SlotForRegistrationNumExecutor());
         executorMapping.put(STATUS, new StatusExecutor());
-
     }
 
     public static CommandExecutionService getInstance() {
@@ -28,7 +27,6 @@ public class CommandExecutionService {
     }
 
     public CommandResult execute(Command command) {
-        CommandResult commandResult;
         try {
             switch (command.getType()) {
                 case CREATE:
@@ -39,14 +37,17 @@ public class CommandExecutionService {
                 default:
                     CommandExecutor commandExecutor = executorMapping.get(command.getType());
                     if (commandExecutor != null) {
-                        return commandExecutor.execute(parkingLotService, command);
+                        return commandExecutor.executeIfInitialized(parkingLotService, command);
                     }
 
             }
         } catch (IllegalStateException | IllegalArgumentException e) {
             return new CommandResult(false, e.getMessage());
         }
-        return new CommandResult(true, "");
+        return new CommandResult(false, "Unknown error from command execution service.");
     }
 
+    public CommandExecutor getExecutor(CommandType commandType) {
+        return executorMapping.get(commandType);
+    }
 }

@@ -21,8 +21,7 @@ public class ParkExecutor implements CommandExecutor {
                 return new CommandResult(false, "Sorry, parking lot is full");
             }
         } else {
-            sendParkingLotNotCreatedResponse();
+            return parkingLotNotCreatedResponse();
         }
-        return null;
     }
 }
