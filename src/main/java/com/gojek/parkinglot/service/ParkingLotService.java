@@ -1,6 +1,5 @@
 package com.gojek.parkinglot.service;
 
-import com.gojek.parkinglot.model.ParkingLot;
 import com.gojek.parkinglot.model.ParkingSlot;
 import com.gojek.parkinglot.model.Vehicle;
 
@@ -11,42 +10,42 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ParkingLotService {
-    private final ParkingLot parkingLot;
+    private final ParkingLotDistributor parkingLotDistributor;
 
-    private ParkingLotService(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    private ParkingLotService(ParkingLotDistributor parkingLotDistributor) {
+        this.parkingLotDistributor = parkingLotDistributor;
     }
 
-    public static ParkingLotService getInstance(ParkingLot parkingArea) {
-        return new ParkingLotService(parkingArea);
+    public static ParkingLotService getInstance(ParkingLotDistributor parkingLotDistributor) {
+        return new ParkingLotService(parkingLotDistributor);
     }
 
     public Integer park(Vehicle vehicle) {
-        boolean isAlreadyParked = parkingLot.isVehicleParked(vehicle);
-        if(isAlreadyParked) {
+        boolean isAlreadyParked = parkingLotDistributor.isVehicleParked(vehicle);
+        if (isAlreadyParked) {
             throw new IllegalStateException(String.format(
                     "Vehicle with registration number %s already parked.", vehicle.getRegistrationNumber()));
         }
-        ParkingSlot nextAvailableSlot = parkingLot.getNextAvailableSlot();
+        ParkingSlot nextAvailableSlot = parkingLotDistributor.getNextAvailableSlot();
         if (nextAvailableSlot != null) {
-            parkingLot.allocate(nextAvailableSlot, vehicle);
+            parkingLotDistributor.allocate(nextAvailableSlot, vehicle);
             return nextAvailableSlot.getNumber();
         }
         return -1;
     }
 
     public Boolean leave(int slotNumber) {
-        return parkingLot.deAllocate(slotNumber);
+        return parkingLotDistributor.deAllocate(slotNumber);
     }
 
     public List<Vehicle> getVehiclesMatching(Predicate<Vehicle> vehiclePredicate) {
-        Set<Vehicle> allParkedVehicles = parkingLot.getAllParkedVehicles();
+        Set<Vehicle> allParkedVehicles = parkingLotDistributor.getAllParkedVehicles();
         return allParkedVehicles.stream().filter(vehiclePredicate).collect(Collectors.toList());
     }
 
     public List<ParkingSlot> getSlotsMatching(Predicate<Vehicle> vehiclePredicate) {
         final List<ParkingSlot> slotsMatchingCriteria = new ArrayList<>();
-        Set<ParkingSlot> allOccupiedSlots = parkingLot.getAllOccupiedSlots();
+        Set<ParkingSlot> allOccupiedSlots = parkingLotDistributor.getAllOccupiedSlots();
         allOccupiedSlots.stream().forEach(s -> {
             Vehicle parkedVehicle = s.getParkedVehicle();
             if (vehiclePredicate.test(parkedVehicle)) {
@@ -57,7 +56,7 @@ public class ParkingLotService {
     }
 
     public List<ParkingSlot> getStatus() {
-        return List.copyOf(parkingLot.getAllOccupiedSlots());
+        return List.copyOf(parkingLotDistributor.getAllOccupiedSlots());
 
     }
 }

@@ -1,6 +1,7 @@
 package com.gojek.parkinglot.acceptance;
 
 import com.gojek.parkinglot.model.*;
+import com.gojek.parkinglot.service.ParkingLotDistributor;
 import com.gojek.parkinglot.service.ParkingLotService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,13 @@ public class ParkingLotServiceAcceptanceTest {
     @BeforeEach
     private void setup() {
         ParkingLot parkingLot = ParkingLotFactory.create(11);
-        parkingLotService = ParkingLotService.getInstance(parkingLot);
+
+        parkingLotService = ParkingLotService.getInstance(ParkingLotDistributor.getInstance(parkingLot));
+    }
+
+    @Test
+    public void shouldBeAbleToHandleMoreThanOneParkingLot() {
+
     }
 
     @Test

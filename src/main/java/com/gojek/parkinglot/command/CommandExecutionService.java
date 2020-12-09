@@ -3,6 +3,7 @@ package com.gojek.parkinglot.command;
 import com.gojek.parkinglot.command.executor.*;
 import com.gojek.parkinglot.model.ParkingLot;
 import com.gojek.parkinglot.model.ParkingLotFactory;
+import com.gojek.parkinglot.service.ParkingLotDistributor;
 import com.gojek.parkinglot.service.ParkingLotService;
 
 import java.util.HashMap;
@@ -32,7 +33,9 @@ public class CommandExecutionService {
                 case CREATE:
                     int numberOfSlots = Integer.parseInt(command.getParams().getFirst());
                     ParkingLot parkingLot = ParkingLotFactory.create(numberOfSlots);
-                    parkingLotService = ParkingLotService.getInstance(parkingLot);
+                    ParkingLotDistributor.getInstance(parkingLot);
+                    parkingLotService = ParkingLotService.getInstance(ParkingLotDistributor.getInstance(parkingLot));
+
                     return new CommandResult(true, String.format("Created a parking lot with %d slots ", numberOfSlots));
                 default:
                     CommandExecutor commandExecutor = executorMapping.get(command.getType());
